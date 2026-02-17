@@ -27,7 +27,7 @@ export const TopPage = () => {
   };
 
   const handleClockOut = async () => {
-    const response = await fetch("/attendances/clock-in", {
+    const response = await fetch("/attendances/clock-out", {
       method: "POST",
       body: JSON.stringify({ user_id: user.id }),
     });
