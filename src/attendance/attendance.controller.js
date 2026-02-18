@@ -24,6 +24,16 @@ function createAttendanceController(service) {
   // 一覧取得
   const list = async (req, res) => {
     const limit = req.query.limit ? Number(req.query.limit) : undefined;
+
+    // 日付指定がある場合
+    if (req.query.date) {
+      const result = await service.findByUserAndDate(
+        req.user.id,
+        req.query.date
+      );
+      return res.status(200).json({ data: result });
+    }
+
     const result = await service.listByUser(req.user.id, limit);
     res.status(200).json({ data: result });
   };

@@ -50,13 +50,19 @@ paths:
   /api/attendances:
     get:
       summary: 勤務管理一覧の取得
-      description: ログイン済みユーザの全勤務記録の一覧を取得します。
+      description: ログイン済みユーザの全勤務記録の一覧を取得します。dateパラメータを指定した場合は該当日の記録のみを返します。
       parameters:
         - name: limit
           in: query
           schema:
             type: integer
           description: 取得する勤務記録数の上限（デフォルト: 50）
+        - name: date
+          in: query
+          schema:
+            type: string
+            format: date
+          description: 指定した日付の勤務記録のみを取得（YYYY-MM-DD形式）
       responses:
         '200':
           description: 勤務管理一覧取得成功
@@ -65,10 +71,14 @@ paths:
               schema:
                 type: object
                 properties:
-                  list:
-                    type: array
-                    items:
-                      type: object
+                  data:
+                    oneOf:
+                      - type: array
+                        items:
+                          type: object
+                        description: dateパラメータなしの場合は配列
+                      - type: object
+                        description: dateパラメータ指定時は単一オブジェクト
 
   /api/attendances/{id}:
     get:
