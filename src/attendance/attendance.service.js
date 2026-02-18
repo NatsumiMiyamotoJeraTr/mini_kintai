@@ -7,6 +7,32 @@ function createAttendanceService(repository) {
     return todayStr.split(' ')[0].replaceAll('/', '-');
   };
 
+  // (helper)レコード内の日付・時間を日本時間でフォーマットして戻す用
+  // DBには日本時間で保存しているが、返ってくるときに自動的にUTCに変換されてしまっているぽい
+  const formatRecordToJapanTime = (record) => {
+    if (!record) return record;
+
+    const formatted_record = { ...record };
+    const keys = [
+      'work_date',
+      'clock_in',
+      'clock_out',
+      'created_at',
+      'updated_at',
+    ];
+
+    for (const key of keys) {
+      if (formatted_record[key]) {
+        const date = new Date(formatted_record[key]);
+        formatted_record[key] = date.toLocaleString('ja-JP', {
+          timeZone: 'Asia/Tokyo',
+        });
+      }
+    }
+
+    return formatted_record;
+  };
+
   // (helper)ユーザーの本日の勤務記録を取得
   const getTodayAttendance = async (userId) => {
     const today = getTodayDateStr();
@@ -27,7 +53,9 @@ function createAttendanceService(repository) {
     }
 
     const today = getTodayDateStr();
-    const clockInTime = new Date();
+    const clockInTime = new Date().toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo',
+    });
 
     const payload = {
       user_id: userId,
@@ -38,7 +66,7 @@ function createAttendanceService(repository) {
 
     try {
       const created = await repository.create(payload);
-      return { ok: true, data: created };
+      return { ok: true, data: formatRecordToJapanTime(created) };
     } catch (error) {
       return {
         ok: false,
@@ -68,18 +96,20 @@ function createAttendanceService(repository) {
       };
     }
 
-    const clockOutTime = new Date();
+    const clockOutTime = new Date().toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo',
+    });
     const updated = await repository.update(existing.id, {
       clock_out: clockOutTime,
     });
 
-    return { ok: true, data: updated };
+    return { ok: true, data: formatRecordToJapanTime(updated) };
   };
 
-  // 一覧
+  // 指定ユーザIDの勤怠記録一覧
   const listByUser = async (userId, limit = 50) => {
     const records = await repository.findByUserId(userId, limit);
-    return records;
+    return records.map(formatRecordToJapanTime);
   };
 
   // id検索
@@ -88,7 +118,7 @@ function createAttendanceService(repository) {
     if (!record) {
       return { ok: false, status: 404, message: '記録が見つかりませんでした' };
     }
-    return { ok: true, data: record };
+    return { ok: true, data: formatRecordToJapanTime(record) };
   };
 
   // update
@@ -96,6 +126,14 @@ function createAttendanceService(repository) {
     const record = await repository.findById(recordId);
     if (!record) {
       return { ok: false, status: 404, message: '記録が見つかりませんでした' };
+    }
+
+    if (record.user_id !== userId) {
+      return {
+        ok: false,
+        status: 403,
+        message: 'ほかのユーザの記録は更新できません',
+      };
     }
 
     // 更新可能な項目: break_minutes, clock_in, clock_out
@@ -110,7 +148,7 @@ function createAttendanceService(repository) {
     }
 
     const updated = await repository.update(recordId, dataToUpdate);
-    return { ok: true, data: updated };
+    return { ok: true, data: formatRecordToJapanTime(updated) };
   };
 
   return {

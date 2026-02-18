@@ -1,5 +1,5 @@
-function createUserRepository(knex, table = 'user') {
-  const list = async (limit = 100) => {
+function createUserRepository(knex, table = 'users') {
+  const list = async (limit = 20) => {
     const user = await knex(table).select('*').limit(limit);
     return user;
   };
