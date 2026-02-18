@@ -4,7 +4,6 @@ const hashedPWList = pwList.map((ele) => {
   const salt = makeSalt();
   return { salt, password_hash: makeHashedPW(ele) };
 });
-console.log(hashedPWList);
 
 exports.seed = async function (knex) {
   await knex('users').del();
