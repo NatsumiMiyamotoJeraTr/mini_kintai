@@ -5,7 +5,8 @@ function createUserService(repository) {
 
   const find = async (id) => {
     const result = await repository.findById(id);
-    if (!result) return { ok: false, status: 404, message: "id not found" };
+    if (!result)
+      return { ok: false, status: 404, message: 'idが見つかりません' };
 
     return { ok: true, data: result };
   };

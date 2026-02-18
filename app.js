@@ -1,8 +1,8 @@
-const express = require("express");
-const knex = require("./knex");
+const express = require('express');
+const knex = require('./knex');
 
-const { initUser } = require("./user/index");
-const { initAttendance } = require("./attendance/index");
+const { initUser } = require('./user/index');
+const { initAttendance } = require('./attendance/index');
 
 function buildApp() {
   const app = express();
@@ -17,26 +17,26 @@ function buildApp() {
     const id = Number(req.params.id);
     if (!Number.isInteger(id) || id <= 0) {
       return res.status(400).json({
-        error: `Invalid id parameter. Instead received "${req.params.id}" which is a type of "${typeof req.params.id}"`,
+        error: `パラメータが不正です。Received: "${req.params.id}", typeof: "${typeof req.params.id}"`,
       });
     }
     next();
   }
 
-  app.get("/users", userController.list);
-  app.get("/users/:id", validateIdMiddleware, userController.find);
+  app.get('/users', userController.list);
+  app.get('/users/:id', validateIdMiddleware, userController.find);
 
-  app.get("/attendances", attendanceController.list);
-  app.get("/attendances/:id", validateIdMiddleware, attendanceController.find);
-  app.post("/attendances/clock-in", attendanceController.create);
-  app.post("/attendances/clock-out", attendanceController.create);
+  app.get('/attendances', attendanceController.list);
+  app.get('/attendances/:id', validateIdMiddleware, attendanceController.find);
+  app.post('/attendances/clock-in', attendanceController.create);
+  app.post('/attendances/clock-out', attendanceController.create);
   app.patch(
-    "/attendances/:id",
+    '/attendances/:id',
     validateIdMiddleware,
-    attendanceController.update,
+    attendanceController.update
   );
 
-  app.use((req, res) => res.status(404).json({ error: "Not Found" }));
+  app.use((req, res) => res.status(404).json({ error: 'Not Found' }));
 
   return app;
 }
