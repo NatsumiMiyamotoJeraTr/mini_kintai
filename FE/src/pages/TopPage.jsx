@@ -7,7 +7,7 @@ export const TopPage = () => {
   const [isClockedOut, setIsClockedOut] = useState(false);
 
   const handleClockIn = async () => {
-    const response = await fetch('/attendances/clock-in', {
+    const response = await fetch('/api/attendances/clock-in', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -15,19 +15,15 @@ export const TopPage = () => {
     });
 
     if (response.ok) {
-      const data = await response.json();
       setMessage('出勤しました');
       setIsClockedIn(true);
-      console.log('log: 出勤成功', data);
     } else {
-      const data = await response.json();
       setMessage('出勤に失敗しました');
-      console.log('log: 出勤エラー', data);
     }
   };
 
   const handleClockOut = async () => {
-    const response = await fetch('/attendances/clock-out', {
+    const response = await fetch('/api/attendances/clock-out', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,9 +34,7 @@ export const TopPage = () => {
       setMessage('退勤しました');
       setIsClockedOut(true);
     } else {
-      const data = await response.json();
       setMessage('退勤に失敗しました');
-      console.log('log: 退勤エラー', data);
     }
   };
 

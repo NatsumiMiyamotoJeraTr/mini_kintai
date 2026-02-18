@@ -48,15 +48,15 @@ function buildApp() {
     next();
   }
 
-  app.get('/users', userController.list);
-  app.get('/users/:id', validateIdMiddleware, userController.find);
+  app.get('/api/users', userController.list);
+  app.get('/api/users/:id', validateIdMiddleware, userController.find);
 
-  app.get('/attendances', attendanceController.list);
-  app.get('/attendances/:id', validateIdMiddleware, attendanceController.find);
-  app.post('/attendances/clock-in', attendanceController.clockIn);
-  app.post('/attendances/clock-out', attendanceController.clockOut);
+  app.get('/api/attendances', attendanceController.list);
+  app.get('/api/attendances/:id', validateIdMiddleware, attendanceController.find);
+  app.post('/api/attendances/clock-in', attendanceController.clockIn);
+  app.post('/api/attendances/clock-out', attendanceController.clockOut);
   app.patch(
-    '/attendances/:id',
+    '/api/attendances/:id',
     validateIdMiddleware,
     attendanceController.update
   );

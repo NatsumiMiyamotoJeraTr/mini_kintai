@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 
 paths:
-  /users:
+  /api/users:
     get:
       summary: ユーザー一覧の取得
       description: 全ユーザーの一覧を取得します。
@@ -28,7 +28,7 @@ paths:
                     items:
                       type: object
 
-  /users/{id}:
+  /api/users/{id}:
     get:
       summary: ユーザー詳細の取得
       description: 指定されたIDのユーザー情報を取得します。
@@ -47,7 +47,7 @@ paths:
               schema:
                 type: object
         
-  /attendances:
+  /api/attendances:
     get:
       summary: 勤務管理一覧の取得
       description: ログイン済みユーザの全勤務記録の一覧を取得します。
@@ -70,7 +70,7 @@ paths:
                     items:
                       type: object
 
-  /attendances/{id}:
+  /api/attendances/{id}:
     get:
       summary: 勤務管理詳細の取得
       description: 指定されたIDの勤務記録を取得します。
@@ -143,7 +143,7 @@ paths:
               schema:
                 type: object
 
-  /attendances/clock-in:
+  /api/attendances/clock-in:
     post:
       summary: 勤務開始
       description: 勤務開始の記録を作成します。
@@ -167,7 +167,7 @@ paths:
               schema:
                 type: object
 
-  /attendances/clock-out:
+  /api/attendances/clock-out:
     post:
       summary: 勤務終了
       description: 勤務終了の記録を作成します。
