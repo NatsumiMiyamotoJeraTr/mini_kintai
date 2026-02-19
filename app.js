@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const session = require('express-session');
 const knex = require('./db/knex');
 const swaggerUi = require('swagger-ui-express');
@@ -31,7 +32,7 @@ function buildApp() {
   app.use(authMiddleware); // リクエストにuser_idをつけくわえた状態で、全エンドポイント実行
 
   // OpenAPI ドキュメント設定
-  const openApiPath = './openapi.yaml';
+  const openApiPath = path.join(__dirname, 'openapi.yaml');
   const swaggerDocument = YAML.load(openApiPath);
 
   // Swagger UI を /api-docs エンドポイント で公開
