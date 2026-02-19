@@ -1,8 +1,8 @@
-const { pwList, makeSalt, makeHashedPW } = require('../../makepw');
+const { pwList, makeSalt, makeHashedPW } = require('../../../utils/makepw');
 
 const hashedPWList = pwList.map((ele) => {
   const salt = makeSalt();
-  return { salt, password_hash: makeHashedPW(ele) };
+  return { salt, password_hash: makeHashedPW(salt, ele) };
 });
 
 exports.seed = async function (knex) {
