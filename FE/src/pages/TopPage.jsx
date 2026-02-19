@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Header } from '../components/Header';
+import { Clock } from '../components/Clock';
 import { Link } from 'react-router-dom';
 
 export const TopPage = () => {
@@ -65,6 +66,8 @@ export const TopPage = () => {
   return (
     <>
       <Header innerText="Mini-Kintai" />
+      <h4>打刻</h4>
+      <Clock />
       <div>
         <p>{message}</p>
         <button onClick={handleClockIn} disabled={isClockedIn}>
