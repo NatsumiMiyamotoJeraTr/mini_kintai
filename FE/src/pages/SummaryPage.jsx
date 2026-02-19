@@ -35,7 +35,7 @@ export const SummaryPage = () => {
                   <th>出勤時刻</th>
                   <th>退勤時刻</th>
                   <th>休憩時間(分)</th>
-                  <th>操作</th>
+                  <th>編集</th>
                 </tr>
               </thead>
               <tbody>
@@ -60,7 +60,7 @@ export const SummaryPage = () => {
                     </td>
                     <td>{record.break_minutes ?? 0}</td>
                     <td>
-                      <Link to={`/attendances/${record.id}/edit`}>編集</Link>
+                      <Link to={`/attendances/${record.id}/edit`}>✎</Link>
                     </td>
                   </tr>
                 ))}
