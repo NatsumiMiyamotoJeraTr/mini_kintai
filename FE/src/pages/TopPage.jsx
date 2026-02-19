@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Header } from '../components/Header';
 import { Clock } from '../components/Clock';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthUserContext';
 
 export const TopPage = () => {
   const [message, setMessage] = useState('');
   const [isClockedIn, setIsClockedIn] = useState(false);
   const [isClockedOut, setIsClockedOut] = useState(false);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const fetchTodayAttendance = async () => {
@@ -63,6 +66,11 @@ export const TopPage = () => {
     }
   };
 
+  const handleLogout = async () => {
+    await logout();
+    navigate('login');
+  };
+
   return (
     <>
       <Header innerText="Mini-Kintai" />
@@ -77,7 +85,10 @@ export const TopPage = () => {
           退勤
         </button>
       </div>
-      <div className="link">
+      <p>
+        <button onClick={handleLogout}>ログアウト</button>
+      </p>
+      <div>
         <p>
           <Link to="/summary">勤怠一覧</Link>
         </p>
