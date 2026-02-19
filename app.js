@@ -116,11 +116,6 @@ function buildApp() {
     attendanceController.update
   );
 
-  // API用の404ハンドラーに変更
-  app.use('/api/*', (req, res) =>
-    res.status(404).json({ error: 'API Not Found' })
-  );
-
   return app;
 }
 
