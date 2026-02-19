@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "build": "cd FE && npm ci --include=dev && npm run build && cd .. && rm -rf public && cp -r FE/dist public && npm run db:migrate",
+    "build": "npm install && cd FE && npm ci --include=dev && npm run build && cd .. && rm -rf public && cp -r FE/dist public && npm run db:migrate",
     "db:migrate": "npx knex migrate:latest --knexfile ./db/knexfile.js",
     "db:migrate-make": "npx knex migrate:make --knexfile ./db/knexfile.js",
     "db:seed": "npx knex seed:run --knexfile ./db/knexfile.js",
