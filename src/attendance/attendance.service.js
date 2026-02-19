@@ -1,15 +1,14 @@
 function createAttendanceService(repository) {
   // (helper)日本時間で本日の日付を取得 (YYYY-MM-DD)
   const getTodayDateStr = () => {
-    const todayStr = new Date().toLocaleString('ja-JP', {
-      timeZone: 'Asia/Tokyo',
-    });
-    return todayStr.split(' ')[0].replaceAll('/', '-');
+    const today = new Date();
+    const japanDate = new Date(
+      today.toLocaleString('en-US', { timeZone: 'Asia/Tokyo' })
+    );
+    return japanDate.toISOString().split('T')[0];
   };
 
   // (helper)レコード内の日付・時間を日本時間でフォーマットして戻す用
-  // DBには日本時間で保存しているが、返ってくるときに自動的にUTCに変換されてしまっているぽい
-  // 無駄かもしれないが、将来SQLで時間計算をしたいとき用にtimestamp, date型での保存のままにして、変換を表で適宜行うこととする
   const formatRecordToJapanTime = (record) => {
     if (!record) return record;
 
@@ -54,9 +53,7 @@ function createAttendanceService(repository) {
     }
 
     const today = getTodayDateStr();
-    const clockInTime = new Date().toLocaleString('ja-JP', {
-      timeZone: 'Asia/Tokyo',
-    });
+    const clockInTime = new Date().toISOString();
 
     const payload = {
       user_id: userId,
@@ -97,9 +94,7 @@ function createAttendanceService(repository) {
       };
     }
 
-    const clockOutTime = new Date().toLocaleString('ja-JP', {
-      timeZone: 'Asia/Tokyo',
-    });
+    const clockOutTime = new Date().toISOString();
     const updated = await repository.update(existing.id, {
       clock_out: clockOutTime,
     });
