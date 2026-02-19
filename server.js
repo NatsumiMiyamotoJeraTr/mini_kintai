@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, '/public')));
 
-// SPAのfallback設定 - すべてのルートでindex.htmlを返すようにする（でないと404に引っかかる）
-app.get('*', (req, res) => {
+// SPA用fallback設定 - API以外のすべてのGETリクエストでindex.htmlを返す
+app.get(/^(?!\/api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
