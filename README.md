@@ -18,6 +18,9 @@ cd FE && npm install
 ### 2. database migration
 
 ```bash
+# 環境変数の設定
+cp .env.example .env
+
 # マイグレーション実行
 npx knex migrate:latest
 
