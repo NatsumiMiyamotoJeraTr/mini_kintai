@@ -22,10 +22,10 @@ cd FE && npm install
 cp .env.example .env
 
 # マイグレーション実行
-npx knex migrate:latest
+npm run db:migrate
 
 # シードデータ投入
-npx knex seed:run
+npm run db:seed
 ```
 
 ### 3. 開発環境の起動(FE/BE)
@@ -54,7 +54,7 @@ cd FE && npm run dev
 - データベース：PostgreSQL, Knex.js
 - 認証：セッションベース認証
 
-### ディレクトリ構成
+### ディレクトリ構成(主要ファイル)
 
 ```
 mini_kintai/
@@ -65,6 +65,7 @@ mini_kintai/
 │   └── sanitizer.js
 ├── db/                            # データベース
 │   ├── knexfile.js
+│   ├── knex.js
 │   └── data/
 │       ├── migrations/
 │       └── seeds/                 # テスト用シードデータ
@@ -74,7 +75,9 @@ mini_kintai/
 │       ├── pages/                 # ページコンポーネント
 │       └── contexts/              # Context（認証の管理）
 ├── app.js
-└── package.json
+├── server.js
+├── package.json
+└── openapi.yaml
 ```
 
 ## リソース
