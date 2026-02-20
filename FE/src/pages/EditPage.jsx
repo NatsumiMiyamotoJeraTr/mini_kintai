@@ -87,53 +87,57 @@ export const EditPage = () => {
       <div>
         <h2>勤務記録編集</h2>
         <p>日付：{workDate}</p>
-        <p>{message}</p>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>
-              出勤時刻:
-              <input
-                type="time"
-                name="clock_in"
-                value={formData.clock_in}
-                onChange={(e) =>
-                  setFormData({ ...formData, clock_in: e.target.value })
-                }
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              退勤時刻:
-              <input
-                type="time"
-                name="clock_out"
-                value={formData.clock_out}
-                onChange={(e) =>
-                  setFormData({ ...formData, clock_out: e.target.value })
-                }
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              休憩時間（分）:
-              <input
-                type="number"
-                name="break_minutes"
-                min="0"
-                value={formData.break_minutes}
-                onChange={(e) =>
-                  setFormData({ ...formData, break_minutes: e.target.value })
-                }
-              />
-            </label>
-          </div>
-          <button type="submit">保存</button>
-          <button type="button" onClick={() => navigate('/summary')}>
-            キャンセル
-          </button>
-        </form>
+
+        {message ? (
+          <p>{message}</p>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>
+                出勤時刻:
+                <input
+                  type="time"
+                  name="clock_in"
+                  value={formData.clock_in}
+                  onChange={(e) =>
+                    setFormData({ ...formData, clock_in: e.target.value })
+                  }
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                退勤時刻:
+                <input
+                  type="time"
+                  name="clock_out"
+                  value={formData.clock_out}
+                  onChange={(e) =>
+                    setFormData({ ...formData, clock_out: e.target.value })
+                  }
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                休憩時間（分）:
+                <input
+                  type="number"
+                  name="break_minutes"
+                  min="0"
+                  value={formData.break_minutes}
+                  onChange={(e) =>
+                    setFormData({ ...formData, break_minutes: e.target.value })
+                  }
+                />
+              </label>
+            </div>
+            <button type="submit">保存</button>
+            <button type="button" onClick={() => navigate('/summary')}>
+              キャンセル
+            </button>
+          </form>
+        )}
       </div>
       <div className="link">
         <p>
