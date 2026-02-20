@@ -44,12 +44,23 @@ export const EditPage = () => {
 
     const payload = {};
 
+    // workDateをYYYY-MM-DDに変換
+    const standardDate = workDate.includes('/')
+      ? workDate
+          .split('/')
+          .map((v) => v.padStart(2, '0'))
+          .join('-')
+      : workDate;
+
     if (formData.clock_in) {
-      payload.clock_in = `${workDate} ${formData.clock_in}:00`;
+      // JST指定(+9)してから、UTCに変換
+      const jstTimeString = `${standardDate}T${formData.clock_in}:00+09:00`;
+      payload.clock_in = new Date(jstTimeString).toISOString();
     }
 
     if (formData.clock_out) {
-      payload.clock_out = `${workDate} ${formData.clock_out}:00`;
+      const jstTimeString = `${standardDate}T${formData.clock_out}:00+09:00`;
+      payload.clock_out = new Date(jstTimeString).toISOString();
     }
 
     payload.break_minutes = Number(formData.break_minutes);
