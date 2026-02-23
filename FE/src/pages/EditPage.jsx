@@ -84,65 +84,78 @@ export const EditPage = () => {
   return (
     <>
       <Header innerText="Mini-Kintai" />
-      <div>
-        <h2>勤務記録編集</h2>
-        <p>日付：{workDate}</p>
+      <div className="bg-gray-50 py-8 px-4">
+        <div className="max-w-md mx-auto bg-white p-8 border border-gray-300 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold text-center mb-2">勤務記録編集</h2>
+          <p className="text-center text-gray-700 mb-6">日付：{workDate}</p>
 
-        {message ? (
-          <p>{message}</p>
-        ) : (
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>
-                出勤時刻:
+          {message ? (
+            <p className="text-center text-green-700 font-bold py-4 bg-green-100 mb-4 rounded">
+              {message}
+            </p>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2">
+                  出勤時刻:
+                </label>
                 <input
                   type="time"
                   name="clock_in"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={formData.clock_in}
                   onChange={(e) =>
                     setFormData({ ...formData, clock_in: e.target.value })
                   }
                 />
-              </label>
-            </div>
-            <div>
-              <label>
-                退勤時刻:
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2">
+                  退勤時刻:
+                </label>
                 <input
                   type="time"
                   name="clock_out"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={formData.clock_out}
                   onChange={(e) =>
                     setFormData({ ...formData, clock_out: e.target.value })
                   }
                 />
-              </label>
-            </div>
-            <div>
-              <label>
-                休憩時間（分）:
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2">
+                  休憩時間（分）:
+                </label>
                 <input
                   type="number"
                   name="break_minutes"
                   min="0"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={formData.break_minutes}
                   onChange={(e) =>
                     setFormData({ ...formData, break_minutes: e.target.value })
                   }
                 />
-              </label>
-            </div>
-            <button type="submit">保存</button>
-            <button type="button" onClick={() => navigate('/summary')}>
-              キャンセル
-            </button>
-          </form>
-        )}
-      </div>
-      <div className="link">
-        <p>
-          <Link to="/top">トップページ</Link>
-        </p>
+              </div>
+              <div className="flex gap-2 pt-4">
+                <button
+                  type="submit"
+                  className="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded"
+                >
+                  保存
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate('/summary')}
+                  className="flex-1 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 rounded"
+                >
+                  キャンセル
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
       </div>
     </>
   );
