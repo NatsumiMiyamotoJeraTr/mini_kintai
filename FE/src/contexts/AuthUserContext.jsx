@@ -7,6 +7,7 @@ const AuthContext = createContext();
 // ログイン済みuser情報が全コンポーネントで使えるようにする
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchUser = async () => {
     try {
@@ -14,6 +15,8 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data.user);
     } catch {
       setUser(null);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -30,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
