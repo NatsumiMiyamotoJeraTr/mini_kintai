@@ -15,11 +15,13 @@ export const Clock = () => {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(updateCurrentTIme, 500); // 0.5秒間隔で更新
+    const intervalId = setInterval(updateCurrentTIme, 500);
     return () => {
-      clearInterval(intervalId); // コンポーネント削除時に実行され、setInterval無限ループをクリア
+      clearInterval(intervalId);
     };
   }, []);
 
-  return <p>時刻:{currentTime}</p>;
+  return (
+    <p className="text-center text-2xl font-bold mb-4">時刻: {currentTime}</p>
+  );
 };
