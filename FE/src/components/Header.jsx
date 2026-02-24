@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthUserContext';
+import { useHeaderMessage } from '../contexts/ChatMessageContext';
 
 export const Header = ({ innerText, onLogout }) => {
   const { user } = useAuth();
+  const { headerMessage } = useHeaderMessage();
 
   if (user) {
     return (
@@ -20,6 +22,14 @@ export const Header = ({ innerText, onLogout }) => {
             </button>
           )}
         </div>
+
+        {headerMessage && (
+          <div className="mt-2 border-t border-blue-400 px-6 pt-2">
+            <marquee direction="left" scrollamount="6" className="font-medium">
+              {headerMessage}
+            </marquee>
+          </div>
+        )}
       </header>
     );
   }
