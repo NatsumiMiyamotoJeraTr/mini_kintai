@@ -34,16 +34,16 @@ export const SummaryPage = () => {
               <table className="w-full">
                 <thead className="bg-blue-500 text-white">
                   <tr>
-                    <th className="px-4 py-2 text-left border-r border-gray-300">
+                    <th className="px-4 py-2 text-center border-r border-gray-300">
                       日付
                     </th>
-                    <th className="px-4 py-2 text-left border-r border-gray-300">
+                    <th className="px-4 py-2 text-center border-r border-gray-300">
                       出勤時刻
                     </th>
-                    <th className="px-4 py-2 text-left border-r border-gray-300">
+                    <th className="px-4 py-2 text-center border-r border-gray-300">
                       退勤時刻
                     </th>
-                    <th className="px-4 py-2 text-left border-r border-gray-300">
+                    <th className="px-4 py-2 text-center border-r border-gray-300">
                       休憩時間(分)
                     </th>
                     <th className="px-4 py-2 text-center">編集</th>
@@ -53,7 +53,7 @@ export const SummaryPage = () => {
                   {attendance.map((record) => (
                     <tr
                       key={record.id}
-                      className="border-b border-gray-300 hover:bg-gray-50"
+                      className="border-b border-gray-300 hover:bg-gray-50 text-center"
                     >
                       <td className="px-4 py-2 border-r border-gray-300">
                         {record.work_date.split(' ')[0]}
