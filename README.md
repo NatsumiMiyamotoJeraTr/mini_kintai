@@ -38,6 +38,14 @@ npm run dev
 cd FE && npm run dev
 ```
 
+### 4. テストの実行(FE)
+
+```
+cd FE
+npx playwright install chromium
+npm run test:e2e
+```
+
 ## アプリの詳細
 
 ### 機能
